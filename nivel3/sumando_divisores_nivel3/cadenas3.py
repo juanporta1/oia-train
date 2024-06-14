@@ -1,7 +1,7 @@
 def cadenas_divisores(numeros):
     totales = []
     for numero in numeros:
-        if num != 0:
+        if numero != 0:
             divisor_actual = numero
             total = 0
             total += divisor_actual
@@ -30,9 +30,10 @@ while True:
         while not num.isdigit():
             num = input("Ingreselo nuevamente: ")
         num = int(num)
-        
+        if num == 0: break 
         numeros.append(num)
-        if num == 0 or num == -1: break   
-    if num == -1: break
+        
+    
+    if len(numeros) == 0: break
     
     print(cadenas_divisores(numeros))

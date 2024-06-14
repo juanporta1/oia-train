@@ -1,4 +1,2 @@
-num = 123
-
-for i in num:
-    print(i)
+num = int(input("Ingrese: "))
+print(num)
