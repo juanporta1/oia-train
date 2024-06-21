@@ -42,11 +42,26 @@ vector<vector<vector<int>>> iniciaizar(vector<vector<int>> rojo,vector<vector<in
     return matriz;
 }
 
+vector<vector<int>> promediarColores(vector<vector<int>> color, int k, int l)
+{   
+    
+    int n = color.size();
+    int m = color[0].size();
+    
+    vector<vector<int>> colorNuevo(k , vector<int>(l));
+    
+    int posicion[2] = {0,0};
+
+    while (true)
+    {
+        if ((n/k) - 1 == posicion[0] && (m/l) - 1 == posicion[1])
+    }
+}
+
 vector<vector<vector<int>>> miniatura(int k, int l,vector<vector<int>> rojo,vector<vector<int>> verde,vector<vector<int>> azul)
 {
-    int cantidadFilas = trunc(rojo.size() / l);
-    int cantidadColumnas = trunc(rojo[0].size() / k);
     
+
 }
 
 
