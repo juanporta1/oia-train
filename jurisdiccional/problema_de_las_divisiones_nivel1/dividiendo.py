@@ -18,5 +18,5 @@ while numero != 0:
         veces = input("Ingrese nuevamente las veces: ")
     veces = int(veces)
     
-    print(dividiendo(numero,veces))
+    dividiendo(numero,veces)
 
