@@ -54,7 +54,7 @@ vector<vector<int>> promediarColores(vector<vector<int>> color, int k, int l)
 
     while (true)
     {
-        if ((n/k) - 1 == posicion[0] && (m/l) - 1 == posicion[1])
+        if ((n/k) - 1 == posicion[0] && (m/l) - 1 == posicion[1]);
     }
 }
 
