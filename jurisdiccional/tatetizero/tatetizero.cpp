@@ -2,6 +2,47 @@
 #include <vector>
 using namespace std;
 
+void imprimirTablero(vector<vector<int>> tablero)
+{
+    for (int i = 0; i < 3; i++)
+    {
+
+        for(int j = 0; j < 3; j++)
+        {
+            switch (tablero[i][j])
+            {
+            case 0:
+                cout << " . ";
+                break;
+            
+            case 1:
+                cout << " O ";
+                break;
+            
+            case 2:
+                cout << " X ";
+                break;
+            
+            case 3:
+                cout << " G ";
+                break;
+            
+            case 4:
+                cout << " P ";
+                break;
+
+            case 5:
+                 cout << " E ";
+                 break;
+            
+            default:
+                break;
+            }
+        }
+        cout << endl;
+    }
+}
+
 bool verificarContrincante(vector<vector<int>> copia,int contrincante)
 {
     for (int f = 0; f < 3; f++)
@@ -12,21 +53,27 @@ bool verificarContrincante(vector<vector<int>> copia,int contrincante)
             vector<vector<int>> copia2 = copia;
             copia2[f][c] = contrincante;
             
-            for (int i = 0; i < 3; i++)
+            if (copia2[0][c] == contrincante && copia2[1][c] == contrincante && copia2[2][c] == contrincante)
             {
-                if (copia[0][i] == contrincante && copia[1][i] == contrincante && copia[2][i] == contrincante)
-                {
-                    return true;
-                }
-                else if (copia[i][0] == contrincante && copia[i][1] == contrincante && copia[i][2] == contrincante)
-                {
-                    return true;
-                }
-            }
-            if ((copia[0][0] == contrincante && copia[1][1] && copia[2][2] == contrincante) || (copia[0][2] == contrincante && copia[1][1] == contrincante && copia[2][0] == contrincante))
-            {
+                
                 return true;
             }
+            else if (copia2[f][0] == contrincante && copia2[f][1] == contrincante && copia2[f][2] == contrincante)
+            {
+                
+                return true;
+            }
+            
+            else if (copia2[0][0] == contrincante && copia2[1][1] == contrincante && copia2[2][2] == contrincante)
+            {
+                imprimirTablero(copia2);
+                return true;
+            }
+            else if (copia2[0][2] == contrincante && copia2[1][1] == contrincante && copia2[2][0] == contrincante){
+                imprimirTablero(copia2);
+                return true;
+            }
+            
         }
 
     }
@@ -52,67 +99,78 @@ vector<int> proximoJugador(vector<vector<int>> tablero)
     return retorno;
 }
 //0:vacio, 1:jugador 1, 2:jugador 2, 3: ganar, 4:perder, 5: empatar.
-vector<vector<int>> tateti(vector<vector<int>> tablero)
+void tateti(vector<vector<int>> tablero)
 {
     vector<int> info = proximoJugador(tablero);
     int juega = info[0];
     int contrincante = info[1];
+    cout << juega << endl;
+    cout << contrincante << endl;
     vector<vector<int>> muestra = tablero;
     for (int f = 0; f < 3; f++)
     {
         for(int c = 0; c < 3; c++)
         {   
-            if (tablero[f][c]) continue;
+            if (tablero[f][c] != 0) continue;
             vector<vector<int>> copia = tablero;
             copia[f][c] = juega;
-            for ( int i = 0; i < 3;i++)
+            
+            if (copia[0][c] == juega && copia[1][c] == juega && copia[2][c] == juega)
             {
-                if (copia[0][i] == juega && copia[1][i] == juega && copia[2][i] == juega)
-                {
-                    muestra[f][c] = 3;
-                }
-                else if (copia[i][0] == juega && copia[i][1] == juega && copia[i][2] == juega)
-                {
-                    muestra[f][c] = 3;
-                }
-                
-                else
-                {
-                    if (verificarContrincante(copia,contrincante))
-                    {
-                        muestra[f][c] = 4;
-                    }
-                    else
-                    {
-                        muestra[f][c] = 5;
-                    }
-                }
-
+                muestra[f][c] = 3;
+                 
             }
-            if ((copia[0][0] == juega && copia[1][1] && copia[2][2] == juega) || (copia[0][2] == juega && copia[1][1] == juega && copia[2][0] == juega))
+            else if (copia[f][0] == juega && copia[f][1] == juega && copia[f][2] == juega)
+            {
+                muestra[f][c] = 3;
+                
+            }
+            
+            else if ((copia[0][0] == juega && copia[1][1] == juega && copia[2][2] == juega) || (copia[0][2] == juega && copia[1][1] == juega && copia[2][0] == juega))
             {
                 muestra[f][c] = 3;
             }
+            else
+            {
+                if (verificarContrincante(copia,contrincante))
+                {
+                    muestra[f][c] = 4;
+                }
+                else
+                {
+                    muestra[f][c] = 5;
+                }
+            }
+
+        
+            
         }
     }
-    return muestra;
+    imprimirTablero(muestra);
 }
 
 int main()
 {
-    vector<vector<int>> tablero = {{1,2,0},
-                            {1,0,2},
-                            {0,0,0}};
-    vector<vector<int>> muestra = tateti(tablero);
+    // vector<vector<int>> tablero(3); 
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     for (int j = 0; j < 3; j++)
+    //     {
+    //         string entrada;
+    //         cout << "Ingrese la posicion Fila " << i + 1 << ", Columna " << j + 1 << ":"; cin >> entrada;
+            
+    //         if (entrada == ".") tablero[i][j] = 0;
+    //         else if (entrada == "O") tablero[i][j] = 1;
+    //         else if (entrada == "X") tablero[i][j] = 2;
+            
 
-    for (int i = 0; i < 3; i++)
-    {
+    //     }
+    // }
+    vector<vector<int>> tablero = { {0,0,0},
+                                    {1,2,2},
+                                    {2,1,1} }; 
+    tateti(tablero);
 
-        for(int j = 0; j < 3; j++)
-        {
-            cout << muestra[i][j];
-        }
-        cout << endl;
-    }
+    
     return 0;
 }
