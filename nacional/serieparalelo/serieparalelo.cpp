@@ -3,6 +3,9 @@
 #include <algorithm>
 
 using namespace std;
+const int MOD = 1000000007;
+
+// Función para contar permutaciones válidas
 
 bool ordenar(vector<int> a, vector<int> b)
 {
@@ -92,7 +95,6 @@ int serieparalelo(vector<int> t, vector<int> e)
 
     
     imprimirConexiones(conexiones);
-
     return 0;
 }
 
