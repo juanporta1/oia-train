@@ -28,11 +28,29 @@ void imprimirTridimensional(vector<vector<vector<int>>> lista)
 }
 bool noComparte(vector<vector<int>> posiciones, vector<int> posicion)
 {
+
+    vector<int> numerosA;
     for (vector<int> pos : posiciones)
     {
-        if(pos[1] <= posicion[0])
+        for (int i = pos[0]; i <= pos[1]; i++)
         {
-            return false;
+            numerosA.push_back(i);
+        }
+    }
+    vector<int> numerosB;
+    for (int i = posicion[0]; i <= posicion[1]; i++)
+    {
+        numerosB.push_back(i);
+    }
+
+    for (int numero : numerosB)
+    {
+        for (int comparacion : numerosA)
+        {
+            if (numero == comparacion)
+            {
+                return false;
+            }
         }
     }
     return true;
@@ -55,11 +73,11 @@ int cubrecadena(string s, vector<string> t)
         }
         
     }
-
+    imprimirBidimensional(posiciones);
     vector<vector<vector<int>>> combinaciones;
     for (vector<int> posPrincipal : posiciones)
     {
-        vector<vector<int>> combinacion;
+        vector<vector<int>> combinacion = {posPrincipal};
         for ( vector<int> posComparacion : posiciones)
         {
             if (noComparte(combinacion,posComparacion) || combinacion.size() == 0)
@@ -69,23 +87,23 @@ int cubrecadena(string s, vector<string> t)
         }
         combinaciones.push_back(combinacion);
     }
-    imprimirTridimensional(combinaciones);
+    
 
     int minimo;
     for(vector<vector<int>> combinacion : combinaciones)
     {
-        vector<int> posicionesOcupadas;
+        int posicionesOcupadas = 0;
         for(vector<int> pos : combinacion)
         {
             for( int i = pos[0]; i <= pos[1]; i++)
             {
-                posicionesOcupadas.push_back(i);
+                posicionesOcupadas += 1;
             }
         }
-        int cantidadOcupada = posicionesOcupadas.size();
-        if (minimo == 0 ||  s.length() - cantidadOcupada < minimo)
+        
+        if (minimo == 0 ||  s.length() - posicionesOcupadas < minimo)
         {
-            minimo = s.length() - cantidadOcupada;
+            minimo = s.length() - posicionesOcupadas;
         }
     }
     return minimo;
